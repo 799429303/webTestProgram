@@ -1,0 +1,13 @@
+﻿* {
+    padding:0;
+    margin:0;
+}
+
+#accordion div {
+    padding:0px;
+}
+
+#accordion div a:link,a:hover,a:visited{
+    margin-left:35px;
+    text-decoration: none;
+}

@@ -1,0 +1,67 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MainPage</title> 
+    <script src="~/Scripts/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="../../Scripts/jquery-ui-1.11.4/jquery-ui.css" />
+    <script src="../../Scripts/jquery-ui-1.11.4/layout/jquery_ui_layout.js"></script>
+    <link rel="stylesheet"  href="../../Scripts/Style/MainPage.css" />
+</head>
+<body>
+    <div class="ui-layout-north"></div>
+    <div class="ui-layout-center"></div>
+    <div class="ui-layout-west">
+        <div id="accordion"> 
+            <h3>差旅申请</h3>
+             <div>
+                 <ul id="menu_tp">
+                      <li>创建</li>
+                      <li>查看</li>
+                 </ul>
+             </div>
+            <h3>个人报销</h3>
+            <div>
+                <ul id="menu_er">
+                      <li>创建</li>
+                      <li>查看</li>
+                 </ul></div>
+            <h3>对公付款</h3>
+            <div>
+                <ul id="menu_pr">
+                      <li>创建</li>
+                      <li>查看</li>
+                 </ul></div>
+        </div>
+    </div>
+</body>
+
+</html>
+<script type="text/javascript">
+    $(function () {
+        $("#accordion").accordion({
+            heightStyle: 'content'
+        });
+        $("#menu_tp").menu();
+        $("#menu_er").menu();
+        $("#menu_pr").menu();
+        $('body').layout({
+            applyDemoStyles: true,
+            north__resizable: false,//可以改变大小  
+            north__size: 50,//pane的大小  
+            north__closable: false,
+            west__resizable: false,//可以改变大小  
+            west__size: 200,//pane的大小  
+            west__closable: false
+        });
+
+
+    });
+</script>
