@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{6BB23E06-86E1-42D9-869E-E77533F00784}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlHelper", "SqlHelper\SqlHelper.csproj", "{D5B856FA-BCC0-4BDC-B3E4-77920DF8CFB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{6BB23E06-86E1-42D9-869E-E77533F00784}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6BB23E06-86E1-42D9-869E-E77533F00784}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6BB23E06-86E1-42D9-869E-E77533F00784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5B856FA-BCC0-4BDC-B3E4-77920DF8CFB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B856FA-BCC0-4BDC-B3E4-77920DF8CFB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B856FA-BCC0-4BDC-B3E4-77920DF8CFB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B856FA-BCC0-4BDC-B3E4-77920DF8CFB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
