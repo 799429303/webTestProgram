@@ -3,7 +3,6 @@
     Layout = null;
     
 }
-@Model Main.ViewModels.TP_ListViewModel;
 <!DOCTYPE html>
 
 <html>
@@ -25,7 +24,7 @@
 <script type="text/javascript">
     $(function () {
         $("#TP_List").jqGrid({
-            url: "TP_List/Index",
+            url: "TP_LIST/GetAllTP",
             datatype: "json",
             colModel: [
                { label: 'TP NO', name: 'TP_NO', width: 75 },

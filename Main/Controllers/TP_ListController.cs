@@ -5,8 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using Main.ViewModels;
 using System.Text;
-using SystemDAO;
 using System.Data;
+using System.Reflection;
+using DAL;
 namespace Main.Controllers
 {
     public class TP_ListController : Controller
@@ -15,19 +16,26 @@ namespace Main.Controllers
         // GET: TP_List
         public ActionResult Index()
         { 
+            
+            return View("TP_List");
+        }
+
+        public string GetAllTP()
+        {
             List<TP_ListViewModel> lstTP = new List<TP_ListViewModel>();
             lstTP = GetAllTP(lstTP);
-            return View("TP_List");
+            string strJason = ObjectToJson<TP_ListViewModel>("tp_list", lstTP);
+            return strJason;
         }
 
         private List<TP_ListViewModel> GetAllTP(List<TP_ListViewModel> lstTP)
         {
-           
+            SQLHelper sqlhellp = new SQLHelper();
             StringBuilder sbSql = new StringBuilder();
-            sbSql.Remove(0, sbSql.Length-1);
-            sbSql.Append("select * from XM_TP");          
-            DataSet dt=SqlHelper.ExecuteDataSetText(sbSql.ToString(), null);
-            foreach (DataRow dr in dt.Tables[0].Rows)
+            sbSql.Remove(0, sbSql.Length);
+            sbSql.Append("select * from XM_TP");
+            DataTable dt = sqlhellp.ExecuteQuery(sbSql.ToString(),CommandType.Text);
+            foreach (DataRow dr in dt.Rows)
             {
                 TP_ListViewModel TP = new TP_ListViewModel();
                 TP.TP_NO = dr["TP_NO"].ToString();
@@ -35,8 +43,57 @@ namespace Main.Controllers
                 TP.TP_Type = int.Parse(dr["TP_Type"].ToString());
                 lstTP.Add(TP);
             }
+            
             return lstTP;
         }
-        
+
+        #region ToJson泛型集合转json
+        /// <summary>
+        /// 泛型集合转json
+        /// </summary>
+        /// <typeparam name="T">< peparam>
+        /// <param name="jsonName"></param>
+        /// <param name="IL"></param>
+        /// <returns></returns>
+        public static string ObjectToJson<T>(string jsonName, IList<T> IL)
+        {
+            StringBuilder Json = new StringBuilder();
+            if (jsonName.Equals(""))
+            {
+                Json.Append("[");
+            }
+            else
+            {
+                Json.Append("{\"" + jsonName + "\":[");
+            }
+            if (IL.Count > 0)
+            {
+                for (int i = 0; i < IL.Count; i++)
+                {
+                    T obj = Activator.CreateInstance<T>();
+                    Type type = obj.GetType();
+                    PropertyInfo[] pis = type.GetProperties();
+                    Json.Append("{");
+                    for (int j = 0; j < pis.Length; j++)
+                    {
+                        Json.Append("\"" + pis[j].Name.ToString() + "\":\"" + pis[j].GetValue(IL[i], null).ToString() + "\"");
+                        if (j < pis.Length - 1)
+                        {
+                            Json.Append(",");
+                        }
+                    }
+                    Json.Append("}");
+                    if (i < IL.Count - 1)
+                    {
+                        Json.Append(",");
+                    }
+                }
+            }
+            Json.Append("]");
+            //Json.Append("]}");
+            return Json.ToString();
+        }
+
+        #endregion
+            }
     }
-}

@@ -24,7 +24,7 @@
              <div>
                  <ul id="menu_tp">
                       <li>创建</li>
-                      <li>查看</li>
+                     <li onclick ="TP_Search()">查看</li>
                  </ul>
              </div>
             <h3>个人报销</h3>
@@ -62,4 +62,10 @@
             west__closable: false
         });
     });
+
+    function TP_Search()
+    {
+        $.ajax({ url: "/TP_List/Index", async: false });
+        $(".ui-layout-center").html(htmlobj.responseText);
+    }
 </script>
