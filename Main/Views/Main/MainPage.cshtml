@@ -65,7 +65,13 @@
 
     function TP_Search()
     {
-        $.ajax({ url: "/TP_List/Index", async: false });
-        $(".ui-layout-center").html(htmlobj.responseText);
+        $.ajax({
+            url: "/tp_list/index",
+            //data: { randomid: Math.random() },
+            dataType: "text",
+            success: function (data) {
+                $(".ui-layout-center").html(data);
+            }
+        });
     }
 </script>

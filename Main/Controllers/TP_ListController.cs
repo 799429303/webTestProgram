@@ -15,17 +15,19 @@ namespace Main.Controllers
        
         // GET: TP_List
         public ActionResult Index()
-        { 
-            
+        {            
             return View("TP_List");
         }
 
-        public string GetAllTP()
+        public void GetAllTP()
         {
             List<TP_ListViewModel> lstTP = new List<TP_ListViewModel>();
             lstTP = GetAllTP(lstTP);
-            string strJason = ObjectToJson<TP_ListViewModel>("tp_list", lstTP);
-            return strJason;
+            if (lstTP.Count == 0)
+                return;
+            string strJason = ObjectToJson<TP_ListViewModel>("", lstTP);
+            Response.Write(strJason);
+            return;
         }
 
         private List<TP_ListViewModel> GetAllTP(List<TP_ListViewModel> lstTP)
@@ -40,7 +42,7 @@ namespace Main.Controllers
                 TP_ListViewModel TP = new TP_ListViewModel();
                 TP.TP_NO = dr["TP_NO"].ToString();
                 TP.TP_Name = dr["TP_Name"].ToString();
-                TP.TP_Type = int.Parse(dr["TP_Type"].ToString());
+                TP.TP_Type = int.Parse(dr["Type"].ToString());
                 lstTP.Add(TP);
             }
             

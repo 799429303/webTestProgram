@@ -24,12 +24,12 @@
 <script type="text/javascript">
     $(function () {
         $("#TP_List").jqGrid({
-            url: "TP_LIST/GetAllTP",
+            url: "/tp_list/getalltp",
             datatype: "json",
             colModel: [
-               { label: 'TP NO', name: 'TP_NO', width: 75 },
-               { label: 'TP Name', name: 'TP_Name', width: 90 },
-               { label: '类型', name: 'TP_Type', width: 100 },
+               { label: 'TP NO', name: 'TP_NO', width:10 },
+               { label: 'TP Name', name: 'TP_Name', width: 10 },
+               { label: '类型', name: 'TP_Type', width: 10 },
             ],
             viewrecords: true, // show the current page, data rang and total records on the toolbar
             width: 780,
@@ -37,6 +37,16 @@
             rowNum: 30,
             loadonce: true, // this is just for the demo
             pager: "#jqGridPager"
+
+
+            //jsonReader: {    //jsonReader来跟服务器端返回的数据做对应  
+            //root: "dataRows",  //包含实际数据的数组  
+            //page: "currPage",  //当前页  
+            //total: "totalPage",//总页数  
+            //records:"totalCount", //查询出的记录数  
+            //repeatitems : false      
+        //}  
+
         });
     });
 </script>

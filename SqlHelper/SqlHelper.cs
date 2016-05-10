@@ -23,7 +23,7 @@ namespace DAL
 
         public SQLHelper()
         {
-            string connStr = ConfigurationManager.ConnectionStrings["con"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["first"].ConnectionString;
             conn = new SqlConnection(connStr);
         }
 
