@@ -27,18 +27,16 @@
             url: "/tp_list/getalltp",
             datatype: "json",
             colModel: [
-               { label: 'TP NO', name: 'TP_NO', width:10 },
-               { label: 'TP Name', name: 'TP_Name', width: 10 },
-               { label: '类型', name: 'TP_Type', width: 10 },
+               { label: 'TP NO', name: 'TP_NO',width:70},
+               { label: 'TP Name', name: 'TP_Name', width:250 },
+               { label: '类型', name: 'TP_Type', width:50},
             ],
-            viewrecords: true, // show the current page, data rang and total records on the toolbar
-            width: 780,
-            height: 200,
+            viewrecords: true, // show the current page, data rang and total records on the toolbar         
             rowNum: 30,
             loadonce: true, // this is just for the demo
-            pager: "#jqGridPager"
-
-
+            pager: "#jqGridPager",
+            autowidth: true,
+            shrinkToFit:false
             //jsonReader: {    //jsonReader来跟服务器端返回的数据做对应  
             //root: "dataRows",  //包含实际数据的数组  
             //page: "currPage",  //当前页  
@@ -48,5 +46,14 @@
         //}  
 
         });
+        $("#TP_List").setGridHeight($(window).height() - $(".ui-layout-north").height() - 90);
+        $(window).resize(function () {
+            $(window).unbind("onresize");         
+            $("#TP_List").setGridWidth($(window).width() - $(".ui-layout-west").width() - 60);
+            $("#TP_List").setGridHeight($(window).height() - $(".ui-layout-north").height() - 90);
+            $(window).bind("onresize", this);
+        });
+
+
     });
 </script>
