@@ -42,7 +42,18 @@ namespace Main.Controllers
                 TP_ListViewModel TP = new TP_ListViewModel();
                 TP.TP_NO = dr["TP_NO"].ToString();
                 TP.TP_Name = dr["TP_Name"].ToString();
-                TP.TP_Type = int.Parse(dr["Type"].ToString());
+                TP.State =(TP_ListViewModel.TP_State)(int.Parse(dr["State"].ToString()));
+                TP.ApplyDate = DateTime.Parse(dr["ApplyDate"].ToString());
+                TP.ApplyUser = dr["Apply_User"].ToString();
+                TP.ApproveUser = "";
+                if (TP.State ==TP_ListViewModel.TP_State.Create)
+                {
+                    TP.IsLocked = false;
+                }
+                else
+                {
+                    TP.IsLocked=true;
+                }
                 lstTP.Add(TP);
             }
             

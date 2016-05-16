@@ -27,9 +27,14 @@
             url: "/tp_list/getalltp",
             datatype: "json",
             colModel: [
-               { label: 'TP NO', name: 'TP_NO',width:70},
+               { label: 'TP NO', name: 'TP_NO', width: 70, align: 'center' },
                { label: 'TP Name', name: 'TP_Name', width:250 },
-               { label: '类型', name: 'TP_Type', width:50},
+               { label: '状态', name: 'State', width: 50, align: 'center' },
+               { label: '是否锁定', name: 'IsLocked', width: 50,align: 'center', formatter: function (value, grid, rows, state) { if (value == true) { return "<img class=\"ui-icon ui-icon-locked\">" } else { return "<img class=\"ui-icon ui-icon-unlocked\">" } } },
+               { label: '申请人', name: 'ApplyUser', width: 70, align: 'center' },
+               { label: '申请日期', name: 'ApplyDate', width: 90, align: 'center' },
+               { label: '审核人', name: 'ApproveUser', width: 70, align: 'center' },
+               { label: '操作', width: 50, align: 'center', formatter: function (value, grid, rows, state) { return "<a href=\"#\" class=\"ui-icon ui-icon-trash\" onclick=\"Delete(" + rows.id + ")\">删除</a>" } }
             ],
             viewrecords: true, // show the current page, data rang and total records on the toolbar         
             rowNum: 30,
