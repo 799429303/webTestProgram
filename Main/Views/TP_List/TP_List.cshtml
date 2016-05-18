@@ -11,18 +11,28 @@
     <title>TP_List</title>
     <link rel="stylesheet" href="~/Scripts/jquery-ui-1.11.4/jquery-ui.css" />
     <link rel="stylesheet" href="~/Scripts/jquery-ui-1.11.4/jqgrid/css/ui.jqgrid.css" />
+    <link rel="stylesheet" href="../../Scripts/Style/TP_List.css" />
     <script src="~/Scripts/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.4/jquery-ui.js"></script>
     <script src="~/Scripts/jquery-ui-1.11.4/jqgrid/js/jquery.jqGrid.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.11.4/jqgrid/src/i18n/grid.locale-cn.js"></script>
 </head>
 <body>
-    <div> 
-        <table id="TP_List"></table>
-    </div>
+        <div id="tabs">
+            <ul>
+                <li><a href="#tabs-1">申请单据</a></li>
+                <li><a href="#tabs-2">审核单据</a></li>
+            </ul>
+            <div id="tabs-1">
+                 <table id="TP_List"></table>
+            </div>
+            <div id="tabs-2"></div>
+        </div>
 </body>
 </html>
 <script type="text/javascript">
     $(function () {
+        $("#tabs").tabs();
         $("#TP_List").jqGrid({
             url: "/tp_list/getalltp",
             datatype: "json",
@@ -30,18 +40,19 @@
                { label: 'TP NO', name: 'TP_NO', width: 70, align: 'center' },
                { label: 'TP Name', name: 'TP_Name', width:250 },
                { label: '状态', name: 'State', width: 50, align: 'center' },
-               { label: '是否锁定', name: 'IsLocked', width: 50,align: 'center', formatter: function (value, grid, rows, state) { if (value == true) { return "<img class=\"ui-icon ui-icon-locked\">" } else { return "<img class=\"ui-icon ui-icon-unlocked\">" } } },
+               { label: '是否锁定', name: 'IsLocked', width: 50, formatter: function (value, grid, rows, state) { if (value == true) { return "<img class=\"ui-icon ui-icon-locked\">" } else { return "<img class=\"ui-icon ui-icon-unlocked\">" } }, align: 'center' },
                { label: '申请人', name: 'ApplyUser', width: 70, align: 'center' },
-               { label: '申请日期', name: 'ApplyDate', width: 90, align: 'center' },
+               { label: '申请日期', name: 'ApplyDate', width: 100, align: 'center' },
                { label: '审核人', name: 'ApproveUser', width: 70, align: 'center' },
-               { label: '操作', width: 50, align: 'center', formatter: function (value, grid, rows, state) { return "<a href=\"#\" class=\"ui-icon ui-icon-trash\" onclick=\"Delete(" + rows.id + ")\">删除</a>" } }
+               { label: '操作', width: 50, formatter: function (value, grid, rows, state) { return "<a href=\"#\" class=\"ui-icon ui-icon-trash\" onclick=\"Delete(" + rows.id + ")\">删除</a>" }, align: 'center' }
             ],
             viewrecords: true, // show the current page, data rang and total records on the toolbar         
             rowNum: 30,
             loadonce: true, // this is just for the demo
             pager: "#jqGridPager",
             autowidth: true,
-            shrinkToFit:false
+            shrinkToFit: false
+
             //jsonReader: {    //jsonReader来跟服务器端返回的数据做对应  
             //root: "dataRows",  //包含实际数据的数组  
             //page: "currPage",  //当前页  
@@ -51,14 +62,18 @@
         //}  
 
         });
-        $("#TP_List").setGridHeight($(window).height() - $(".ui-layout-north").height() - 90);
+        $("#tabs-1").height($(window).height() - $(".ui-layout-north").height()-120)
+        $("#TP_List").setGridWidth($("#tabs").width()-2);
+        $("#TP_List").setGridHeight($("#tabs-1").height()-35);
+
         $(window).resize(function () {
-            $(window).unbind("onresize");         
-            $("#TP_List").setGridWidth($(window).width() - $(".ui-layout-west").width() - 60);
-            $("#TP_List").setGridHeight($(window).height() - $(".ui-layout-north").height() - 90);
-            $(window).bind("onresize", this);
+            $("#tabs-1").width($(window).width() - $(".ui-layout-west").width() - 60)
+            $("#tabs-1").height($(window).height() - $(".ui-layout-north").height() - 120)
+            $("#TP_List").setGridWidth($("#tabs-1").width() - 1);
+            $("#TP_List").setGridHeight($("#tabs-1").height() - 35);
         });
 
 
     });
+
 </script>
