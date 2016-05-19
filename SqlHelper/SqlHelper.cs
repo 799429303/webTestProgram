@@ -177,6 +177,34 @@ namespace DAL
                 }
             }
         }
+
+        public string ExecuteScalar(string sql, SqlParameter[] paras)
+        {
+            try
+            {
+                conn.Open();
+                cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddRange(paras);
+                object obj = cmd.ExecuteScalar();
+                if (obj != null)
+                {
+                    return obj.ToString();
+                }
+                return "";
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (conn.State == ConnectionState.Open)
+                {
+                    conn.Close();
+                }
+            }
+        }
+
         #endregion
 
     }

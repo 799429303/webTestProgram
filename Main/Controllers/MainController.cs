@@ -9,6 +9,7 @@ namespace Main.Controllers
     public class MainController : Controller
     {
         // GET: Main
+        [CheckinLogin]  
         public ActionResult Index()
         {
             return View("MainPage");
