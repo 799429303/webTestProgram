@@ -116,6 +116,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\RegisterController.cs" />
     <Compile Include="Controllers\TP_ListController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -298,6 +299,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\Style\Login.css" />
     <Content Include="Scripts\Style\MainPage.css" />
+    <Content Include="Scripts\Style\Register.css" />
     <Content Include="Scripts\Style\TP_List.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
@@ -320,6 +322,7 @@
     <Content Include="Views\Main\MainPage.cshtml" />
     <Content Include="Views\TP_List\TP_List.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Register\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

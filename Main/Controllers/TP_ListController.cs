@@ -36,7 +36,11 @@ namespace Main.Controllers
             StringBuilder sbSql = new StringBuilder();
             sbSql.Remove(0, sbSql.Length);
             sbSql.Append("select * from XM_TP");
-            DataTable dt = sqlhellp.ExecuteQuery(sbSql.ToString(),CommandType.Text);
+            sbSql.Append(" where apply_user=@apply_user");
+            System.Data.SqlClient.SqlParameter[] paras=new System.Data.SqlClient.SqlParameter[]{
+                new System.Data.SqlClient.SqlParameter("apply_user",HttpContext.Session["user"])
+            };
+            DataTable dt = sqlhellp.ExecuteQuery(sbSql.ToString(), paras, CommandType.Text);
             foreach (DataRow dr in dt.Rows)
             {
                 TP_ListViewModel TP = new TP_ListViewModel();

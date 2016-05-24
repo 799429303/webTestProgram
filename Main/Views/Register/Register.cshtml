@@ -1,0 +1,37 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Register</title>
+    <script src="~/Scripts/jquery-ui-1.11.4/external/jquery/jquery.js"></script>
+    <link rel="stylesheet" href="../../Scripts/Style/Login.css" />
+    <link rel="stylesheet" href="../../Scripts/Style/Register.css" />
+
+</head>
+<body>
+    <form method="post">
+     <div class="page">
+      <div id="header">
+      </div>
+	  <h3>注册账号</h3>
+	  
+	  <div class="line"></div>
+	  <div id="main">
+	      <ul>
+		    <li><label>用户名</label><input type="text"  name="username" /> </li>
+			<li><label>密码</label><input type="text"  name="password" /> </li>
+			<li><label>确认密码</label><input type="text"  name="confirm-password" /> </li>
+			<li><label>邮箱</label><input type="text"  name="email" /> </li>
+		  </ul>	
+		  <input id="submit" type="submit" value="注册账号" />	  
+	  </div>
+	  </div>
+     </form>
+</body>
+</html>
