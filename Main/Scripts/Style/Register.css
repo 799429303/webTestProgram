@@ -11,6 +11,12 @@
     background-color:white;
     height:500px;
   }
+
+h3 {
+    font-size: 30px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
   .line{
 	background-color: lightgray;
 	height: 1px;
@@ -20,7 +26,11 @@
 		text-align: center;
 	}
   ul{
-  list-style:none;
+
+    left: 350px;
+    list-style: none outside none;
+    position: relative;
+    top: 30px;
   }
   
   ul li{
@@ -55,12 +65,12 @@ ul li input {
     cursor: pointer;
     font-size: 15px;
     font-weight: bold;
-    left: 83px;
+    left: -32px;
     margin-left: 15px;
     outline: medium none;
     padding: 10px 19px;
-    position: absolute;
-    top: 180px;
+    position: relative;
+    top: 185px;
     transition: all 0.5s ease-out 0s;
     width: 160px;
   }
@@ -68,4 +78,24 @@ ul li input {
 #submit:hover {
         background: none repeat scroll 0 0 #2E2E2D;
         color:white
+}
+
+#username-notice{
+    display: inline;
+    float: left;
+    left: 260px;
+    margin-top: -19px;
+    position: relative;
+    width: 100px;
+    color:red;
+    text-align: left;
+}
+#password-check {
+    color: red;
+    float: left;
+    left: 260px;
+    position: relative;
+    text-align: left;
+    top: -19px;
+    width: 150px;
 }

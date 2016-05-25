@@ -21,7 +21,7 @@ namespace Main.Controllers
             sbSql.Append("select count(*) from XM_User");
             sbSql.Append(" where user_id=@UserName and password=@Password");
             string strUserName = Request.Params["UserName"];
-            string strPassword = Request.Params["Password"];
+            string strPassword =SQLHelper.Md5Hash(Request.Params["Password"]);
             System.Data.SqlClient.SqlParameter[] paras = new System.Data.SqlClient.SqlParameter[]
             {
              new System.Data.SqlClient.SqlParameter("UserName", strUserName),

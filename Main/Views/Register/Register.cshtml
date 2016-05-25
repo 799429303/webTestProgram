@@ -2,7 +2,6 @@
 @{
     Layout = null;
 }
-
 <!DOCTYPE html>
 
 <html>
@@ -24,14 +23,81 @@
 	  <div class="line"></div>
 	  <div id="main">
 	      <ul>
-		    <li><label>用户名</label><input type="text"  name="username" /> </li>
-			<li><label>密码</label><input type="text"  name="password" /> </li>
-			<li><label>确认密码</label><input type="text"  name="confirm-password" /> </li>
-			<li><label>邮箱</label><input type="text"  name="email" /> </li>
+		    <li><label>用户名</label><input type="text"  name="username" /><label id="username-notice">用户名已存在</label> </li>
+			<li><label>密码</label><input type="password"  name="password" /> </li>
+			<li><label>确认密码</label><input type="password"  name="confirm-password" /><label id="password-check">两次输入的密码不一致</label> </li>
+			<li><label>邮箱</label><input type="text"  name="email" /><label id="email-notice">请输入正确的邮箱格式</label> </li>
 		  </ul>	
-		  <input id="submit" type="submit" value="注册账号" />	  
+		  <input id="submit" type="button" value="注册账号" onclick="notice()"/>	  
 	  </div>
 	  </div>
      </form>
 </body>
 </html>
+<script type="text/javascript">
+    $(function () {
+        $("#username-notice").hide();
+        $("#password-check").hide();
+        $("#email-notice").hide();
+    });
+
+    $("input[name='confirm-password']").focusout(
+        function () {
+            if ($("input[name='password']").val() != $("input[name='confirm-password']").val()) {
+                $("input[ name='confirm-password']")[0].focus();
+                $("#password-check").show();               
+            }
+            else
+            {
+                $("#password-check").hide();
+            }
+        }
+        );
+    $("input[name='username']").focusout(
+        function () {
+            if ($("input[name='username']").val() == "")
+            {
+                $("#username-notice").hide();
+                return;
+            }
+
+            $.ajax({
+                url: "/register/UserCheck",
+                data: { "username": $("input[name='username']").val() },
+                dataType: "text",
+                success: function (data) {
+                    if (data == "1") {
+                        $("#username-notice").html("该用户名已被使用");
+                        $("input[ name='username']")[0].focus();
+                        $("#username-notice").show();
+                    }
+                    else
+                    {
+                        $("#username-notice").html("用户名可以使用");
+                        $("#username-notice").show();
+                    }
+                }
+            }
+            );
+        }
+        );
+    function notice() {
+        var condition={
+            username:$("input[name='username']").val(),
+            password:$("input[name='password']").val(),
+            email:$("input[name='email']").val(),
+        };
+        $.ajax({
+            type: 'POST',
+            url: "/register/adduser",
+            data:condition,
+            dataType: "text",
+            success: function () {
+                alert("注册成功!");
+                window.location.href="../login/index";
+            }
+        });
+         
+    }
+    
+</script>
