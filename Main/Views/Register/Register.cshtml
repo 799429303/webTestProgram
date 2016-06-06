@@ -26,7 +26,7 @@
 		    <li><label>用户名</label><input type="text"  name="username" /><label id="username-notice">用户名已存在</label> </li>
 			<li><label>密码</label><input type="password"  name="password" /> </li>
 			<li><label>确认密码</label><input type="password"  name="confirm-password" /><label id="password-check">两次输入的密码不一致</label> </li>
-			<li><label>邮箱</label><input type="text"  name="email" /><label id="email-notice">请输入正确的邮箱格式</label> </li>
+			<li><label>邮箱</label><input type="text"  name="email" />
 		  </ul>	
 		  <input id="submit" type="button" value="注册账号" onclick="notice()"/>	  
 	  </div>
@@ -36,28 +36,39 @@
 </html>
 <script type="text/javascript">
     $(function () {
-        $("#username-notice").hide();
-        $("#password-check").hide();
-        $("#email-notice").hide();
+        $("#username-notice").css("display","none");
+        $("#password-check").css("display", "none");
+        $("#email-notice").css("display", "none");
     });
 
     $("input[name='confirm-password']").focusout(
         function () {
-            if ($("input[name='password']").val() != $("input[name='confirm-password']").val()) {
-                $("input[ name='confirm-password']")[0].focus();
-                $("#password-check").show();               
+            try{
+            
+                if ($("input[name='password']").val() != $("input[name='confirm-password']").val()) {
+                    $("input[ name='confirm-password']")[0].focus();
+                    $("#password-check").css("display", "block");
+                }
+                else
+                {
+                    $("#password-check").css("display", "none");
+                }
             }
-            else
+            catch(e)
             {
-                $("#password-check").hide();
+                alert(e);
             }
         }
         );
+
+
     $("input[name='username']").focusout(
         function () {
+            try{
+            
             if ($("input[name='username']").val() == "")
             {
-                $("#username-notice").hide();
+                $("#username-notice").css("display", "none");
                 return;
             }
 
@@ -68,36 +79,63 @@
                 success: function (data) {
                     if (data == "1") {
                         $("#username-notice").html("该用户名已被使用");
-                        $("input[ name='username']")[0].focus();
-                        $("#username-notice").show();
+                        $("input[name='username']")[0].focus();
+                        $("#username-notice").css("display", "block");
                     }
                     else
                     {
                         $("#username-notice").html("用户名可以使用");
-                        $("#username-notice").show();
+                        $("#username-notice").css("display", "block");
                     }
                 }
             }
             );
+            }
+            catch (e)
+            {
+                alert(e);
+            }
         }
         );
     function notice() {
-        var condition={
-            username:$("input[name='username']").val(),
-            password:$("input[name='password']").val(),
-            email:$("input[name='email']").val(),
-        };
-        $.ajax({
-            type: 'POST',
-            url: "/register/adduser",
-            data:condition,
-            dataType: "text",
-            success: function () {
-                alert("注册成功!");
-                window.location.href="../login/index";
+        try {
+
+            if ($("input[name='username']").val() == "")
+            {
+                alert("请输入用户名!");
+                return;
             }
-        });
-         
-    }
+
+            if ($("input[name='password']").val() == "") {
+                alert("请输入密码!");
+                return;
+            }
+
+            if ($("input[name='password']").val() != $("input[name='confirm-passworkd']").val()) {
+                alert("两次输入的密码不一致!");
+                return;
+            }
+
+            var condition = {
+                username: $("input[name='username']").val(),
+                password: $("input[name='password']").val(),
+                email: $("input[name='email']").val()
+            };
+            $.ajax({
+                type: 'POST',
+                url: "/register/adduser",
+                data: condition,
+                dataType: "text",
+                success: function () {
+                    alert("注册成功!");
+                    window.location.href = "../login/index";
+                }
+            });
+        }
+        catch (e)
+        {
+            alert(e);
+        }
+    };
     
 </script>
